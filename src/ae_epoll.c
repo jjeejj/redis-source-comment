@@ -32,8 +32,8 @@
 
 typedef struct aeApiState
 {
-    int epfd;
-    struct epoll_event *events;
+    int epfd;                   /* epoll 实例文件描述符*/
+    struct epoll_event *events; /* 记录监听的事件*/
 } aeApiState;
 
 static int aeApiCreate(aeEventLoop *eventLoop)
@@ -78,6 +78,7 @@ static void aeApiFree(aeEventLoop *eventLoop)
 
 static int aeApiAddEvent(aeEventLoop *eventLoop, int fd, int mask)
 {
+    // 从eventLoop结构体中获取aeApiState变量，里面保存了epoll实例
     aeApiState *state = eventLoop->apidata;
     struct epoll_event ee = {0}; /* avoid valgrind warning */
     /* If the fd was already monitored for some event, we need a MOD
@@ -91,6 +92,7 @@ static int aeApiAddEvent(aeEventLoop *eventLoop, int fd, int mask)
     if (mask & AE_WRITABLE)
         ee.events |= EPOLLOUT;
     ee.data.fd = fd;
+    /* 创建监听事件*/
     if (epoll_ctl(state->epfd, op, fd, &ee) == -1)
         return -1;
     return 0;

@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/src/redis-server",
             "args": [
-                "./redis.conf"
+                "../redis.conf"
             ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
