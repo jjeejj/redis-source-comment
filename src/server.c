@@ -4862,6 +4862,7 @@ int main(int argc, char **argv)
     }
 
     server.supervised = redisIsSupervised(server.supervised_mode);
+    /* 判断是否已守护进程执行 */
     int background = server.daemonize && !server.supervised;
     if (background)
         daemonize();
