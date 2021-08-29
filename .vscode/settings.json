@@ -8,6 +8,7 @@
     "zmalloc.h": "c",
     "__locale": "c",
     "server.h": "c",
-    "config.h": "c"
+    "config.h": "c",
+    "lua.h": "c"
   }
 }

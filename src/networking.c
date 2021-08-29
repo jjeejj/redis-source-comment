@@ -1644,11 +1644,12 @@ void processInputBuffer(client *c)
             break;
 
         /* Determine request type when unknown. */
+        // 解析请求的类型
         if (!c->reqtype)
         {
             if (c->querybuf[c->qb_pos] == '*')
             {
-                c->reqtype = PROTO_REQ_MULTIBULK;
+                c->reqtype = PROTO_REQ_MULTIBULK; // 符合 RESP 协议的命令
             }
             else
             {
@@ -1736,6 +1737,7 @@ void processInputBufferAndReplicate(client *c)
     }
 }
 
+/* 从客户端读取数据 */
 void readQueryFromClient(aeEventLoop *el, int fd, void *privdata, int mask)
 {
     client *c = (client *)privdata;
@@ -1765,6 +1767,7 @@ void readQueryFromClient(aeEventLoop *el, int fd, void *privdata, int mask)
     if (c->querybuf_peak < qblen)
         c->querybuf_peak = qblen;
     c->querybuf = sdsMakeRoomFor(c->querybuf, readlen);
+    // 读取数据
     nread = read(fd, c->querybuf + qblen, readlen);
     if (nread == -1)
     {

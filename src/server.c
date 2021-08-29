@@ -2401,6 +2401,7 @@ void InitServerLast()
 void populateCommandTable(void)
 {
     int j;
+    // 命令的数量
     int numcommands = sizeof(redisCommandTable) / sizeof(struct redisCommand);
 
     for (j = 0; j < numcommands; j++)
