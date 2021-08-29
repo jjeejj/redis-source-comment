@@ -1781,6 +1781,7 @@ void initServerConfig(void)
     server.always_show_logo = CONFIG_DEFAULT_ALWAYS_SHOW_LOGO;
     server.lua_time_limit = LUA_SCRIPT_TIME_LIMIT;
 
+    // 设置全局 LRU 时钟值
     unsigned int lruclock = getLRUClock();
     atomicSet(server.lruclock, lruclock);
     resetServerSaveParams();
