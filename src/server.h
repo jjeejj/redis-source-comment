@@ -833,7 +833,7 @@ struct sharedObjectsStruct
 typedef struct zskiplistNode
 {
     sds ele;
-    double score;
+    double score; // 精度位数为 15-16位
     struct zskiplistNode *backward;
     struct zskiplistLevel
     {

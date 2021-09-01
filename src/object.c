@@ -50,6 +50,7 @@ robj *createObject(int type, void *ptr)
      * alternatively the LFU counter. */
     if (server.maxmemory_policy & MAXMEMORY_FLAG_LFU)
     {
+        // 高16位 是以分钟位精度的时间戳，后 8位初始化是5次
         o->lru = (LFUGetTimeInMinutes() << 8) | LFU_INIT_VAL;
     }
     else

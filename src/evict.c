@@ -358,6 +358,7 @@ uint8_t LFULogIncr(uint8_t counter)
     if (counter == 255)
         return 255;
     double r = (double)rand() / RAND_MAX;
+    // 判断是否小于初始化的值
     double baseval = counter - LFU_INIT_VAL;
     if (baseval < 0)
         baseval = 0;
@@ -379,8 +380,8 @@ uint8_t LFULogIncr(uint8_t counter)
  * counter of the scanned objects if needed. */
 unsigned long LFUDecrAndReturn(robj *o)
 {
-    unsigned long ldt = o->lru >> 8;
-    unsigned long counter = o->lru & 255;
+    unsigned long ldt = o->lru >> 8;      // 获取上次访问时间
+    unsigned long counter = o->lru & 255; // 访问次数
     unsigned long num_periods = server.lfu_decay_time ? LFUTimeElapsed(ldt) / server.lfu_decay_time : 0;
     if (num_periods)
         counter = (num_periods > counter) ? 0 : counter - num_periods;
