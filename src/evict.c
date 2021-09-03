@@ -653,7 +653,7 @@ int freeMemoryIfNeeded(void)
             latencyAddSampleIfNeeded("eviction-del", eviction_latency);
             latencyRemoveNestedEvent(latency, eviction_latency);
             delta -= (long long)zmalloc_used_memory();
-            mem_freed += delta;
+            mem_freed += delta; // 更新已经释放的内存量
             server.stat_evictedkeys++;
             notifyKeyspaceEvent(NOTIFY_EVICTED, "evicted",
                                 keyobj, db->id);

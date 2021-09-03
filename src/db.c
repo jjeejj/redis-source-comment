@@ -1309,7 +1309,7 @@ long long getExpire(redisDb *db, robj *key)
  * keys. */
 void propagateExpire(redisDb *db, robj *key, int lazy)
 {
-    robj *argv[2];
+    robj *argv[2]; // 创建一个 redisObject 数组
 
     argv[0] = lazy ? shared.unlink : shared.del;
     argv[1] = key;
@@ -1317,8 +1317,8 @@ void propagateExpire(redisDb *db, robj *key, int lazy)
     incrRefCount(argv[1]);
 
     if (server.aof_state != AOF_OFF)
-        feedAppendOnlyFile(server.delCommand, db->id, argv, 2);
-    replicationFeedSlaves(server.slaves, db->id, argv, 2);
+        feedAppendOnlyFile(server.delCommand, db->id, argv, 2); // 追加 AOF 日志
+    replicationFeedSlaves(server.slaves, db->id, argv, 2);      // 把删除操作同步给从节点
 
     decrRefCount(argv[0]);
     decrRefCount(argv[1]);
