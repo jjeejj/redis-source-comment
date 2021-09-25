@@ -4735,6 +4735,7 @@ int main(int argc, char **argv)
     char hashseed[16];
     getRandomHexChars(hashseed, sizeof(hashseed));
     dictSetHashFunctionSeed((uint8_t *)hashseed);
+    // 判断是否是哨兵模式启动的
     server.sentinel_mode = checkForSentinelMode(argc, argv);
     initServerConfig();
     moduleInitModulesSystem();
